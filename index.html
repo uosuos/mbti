@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#d9ff00">
+<title>CAREER CRASH — 나의 커리어 캐릭터 테스트</title>
+<style>
+  :root{
+    --ink:#171326;--paper:#fffef7;--lime:#d9ff00;--pink:#ff3eb5;--cyan:#45efff;
+    --purple:#7b4dff;--orange:#ff8b38;--muted:#777185;--line:#252039;
+    --shadow:8px 8px 0 var(--ink);--radius:24px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;min-height:100vh;padding:24px 16px 48px;background-color:var(--lime);
+    background-image:radial-gradient(var(--ink) 1.15px,transparent 1.15px);background-size:18px 18px;
+    color:var(--ink);font-family:Pretendard,"Arial Black",-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif}
+  button{font:inherit}
+  .shell{width:min(100%,980px);margin:0 auto}
+  .topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 4px 16px;font-size:12px;font-weight:1000;letter-spacing:.12em}
+  .brand{display:flex;align-items:center;gap:9px}
+  .brand-mark{width:32px;height:32px;display:grid;place-items:center;background:var(--ink);color:var(--lime);border:2px solid var(--ink);border-radius:10px;transform:rotate(-7deg);font-size:17px}
+  .top-pill{padding:7px 11px;border:2px solid var(--ink);border-radius:99px;background:var(--pink)}
+  .surface{background:var(--paper);border:3px solid var(--ink);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  .intro{padding:clamp(22px,5vw,48px)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border:2px solid var(--ink);border-radius:999px;background:var(--cyan);font-size:11px;font-weight:1000;letter-spacing:.08em;transform:rotate(-2deg)}
+  h1{max-width:620px;margin:21px 0 12px;font-size:clamp(42px,8vw,78px);line-height:.98;letter-spacing:-.075em;font-weight:1000}
+  h1 .highlight{display:inline-block;color:var(--pink);-webkit-text-stroke:1.5px var(--ink);text-shadow:3px 3px 0 var(--ink);transform:rotate(-2deg)}
+  .lead{max-width:520px;margin:18px 0 23px;font-size:16px;line-height:1.7;font-weight:750}
+  .one-line{font-weight:1000;font-size:18px;letter-spacing:-.04em}
+  .one-line span{background:var(--lime);padding:2px 5px;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+  .axis-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:25px 0 22px}
+  .axis-card{padding:14px;border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+  .axis-icon{font-size:23px;margin-bottom:8px}.axis-card strong{display:block;margin-bottom:5px;font-size:13px;font-weight:1000}
+  .axis-card span{font-size:11px;line-height:1.55;color:#5d586c;font-weight:700}
+  .hero-art{min-height:330px;position:relative;display:grid;place-items:center;border:3px solid var(--ink);border-radius:28px;background:var(--purple);overflow:hidden;box-shadow:6px 6px 0 var(--ink)}
+  .hero-art:before,.hero-art:after{content:"";position:absolute;border:3px solid var(--ink);border-radius:50%;background:var(--lime)}
+  .hero-art:before{width:180px;height:180px;top:-55px;right:-40px}.hero-art:after{width:115px;height:115px;bottom:-38px;left:-30px;background:var(--pink)}
+  .hero-sticker{position:absolute;top:20px;left:19px;padding:8px 10px;background:var(--cyan);border:2px solid var(--ink);border-radius:8px;font-size:10px;font-weight:1000;transform:rotate(-7deg);z-index:2}
+  .mascot{position:relative;z-index:1;width:205px;height:205px;display:grid;place-items:center;border:4px solid var(--ink);border-radius:42% 58% 45% 55%;background:var(--pink);font-size:112px;transform:rotate(7deg);box-shadow:9px 9px 0 var(--ink)}
+  .mascot:after{content:"★";position:absolute;right:-28px;top:-22px;color:var(--lime);font-size:65px;-webkit-text-stroke:2px var(--ink);transform:rotate(17deg)}
+  .art-caption{position:absolute;bottom:18px;z-index:2;color:white;font-size:12px;font-weight:1000;letter-spacing:.14em;text-shadow:2px 2px var(--ink)}
+  .primary{border:3px solid var(--ink);cursor:pointer;padding:15px 21px;border-radius:13px;color:var(--ink);background:var(--pink);font-weight:1000;box-shadow:5px 5px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+  .primary:hover{transform:translate(2px,2px);box-shadow:3px 3px 0 var(--ink)}
+  .primary:active{transform:translate(5px,5px);box-shadow:0 0 0 var(--ink)}
+  .primary:focus-visible,.answer:focus-visible,.text-button:focus-visible{outline:4px dashed var(--purple);outline-offset:4px}
+  .start-btn{min-width:210px;background:var(--lime);font-size:16px}
+  .fineprint{margin:17px 0 0;color:#706a7c;font-size:11px;line-height:1.6;font-weight:650}
+  .quiz{padding:clamp(20px,4.5vw,42px)}
+  .quiz-progress-wrap{margin-bottom:26px;padding:14px 16px;border:2px solid var(--ink);border-radius:15px;background:var(--lime)}
+  .quiz-head{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;font-weight:1000;letter-spacing:.06em}
+  .progress-track{height:13px;margin-top:10px;border:2px solid var(--ink);border-radius:99px;background:white;overflow:hidden}
+  .progress-fill{height:100%;width:10%;border-right:2px solid var(--ink);background:repeating-linear-gradient(135deg,var(--pink) 0 9px,var(--cyan) 9px 18px);transition:width .25s ease}
+  .quiz-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:23px;align-items:stretch}
+  .question-panel{padding:25px;border:3px solid var(--ink);border-radius:20px;background:var(--purple);color:white;min-height:280px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:5px 5px 0 var(--ink)}
+  .question-tag{display:inline-block;width:max-content;padding:7px 10px;border:2px solid var(--ink);border-radius:8px;color:var(--ink);background:var(--cyan);font-size:11px;font-weight:1000;letter-spacing:.07em}
+  .q-number{margin-top:18px;color:var(--lime);font-size:13px;font-weight:1000;letter-spacing:.1em}
+  .question{margin:11px 0 10px;font-size:clamp(24px,4vw,34px);line-height:1.35;letter-spacing:-.05em;font-weight:1000}
+  .hint{margin:0;color:#eee7ff;font-size:12px;line-height:1.6;font-weight:700}
+  .answers-wrap{display:flex;flex-direction:column;justify-content:center;gap:12px}
+  .answers-label{font-size:12px;font-weight:1000;letter-spacing:.07em}
+  .answers{display:grid;gap:12px}
+  .answer{width:100%;min-height:92px;display:flex;gap:13px;align-items:center;text-align:left;padding:16px;border:3px solid var(--ink);border-radius:16px;background:white;color:var(--ink);box-shadow:4px 4px 0 var(--ink);cursor:pointer;transition:transform .12s,background .12s}
+  .answer:hover{transform:translate(-2px,-2px);background:#f0fbff}
+  .answer.selected{background:var(--cyan);transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+  .answer-letter{flex:0 0 37px;height:37px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:11px;background:var(--pink);font-size:14px;font-weight:1000}
+  .answer:nth-child(2) .answer-letter{background:var(--lime)}
+  .answer-copy{font-size:14px;line-height:1.55;font-weight:850}
+  .quiz-foot{display:flex;justify-content:space-between;align-items:center;margin-top:24px;gap:12px}
+  .text-button{border:0;background:transparent;color:#5f596b;font-weight:900;font-size:13px;padding:10px 2px;cursor:pointer}
+  .text-button:disabled{opacity:.3;cursor:default}.next{padding:12px 18px;background:var(--pink)}
+  .result{padding:clamp(20px,4.5vw,42px)}
+  .result-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:11px;font-weight:1000;letter-spacing:.12em}
+  .result-top .sticker{padding:7px 10px;border:2px solid var(--ink);border-radius:99px;background:var(--cyan);letter-spacing:0}
+  .result-hero{position:relative;margin:22px 0 24px;padding:clamp(21px,4vw,34px);border:3px solid var(--ink);border-radius:22px;background:var(--pink);box-shadow:6px 6px 0 var(--ink);overflow:hidden}
+  .result-hero:after{content:"✦";position:absolute;right:20px;top:10px;color:var(--lime);font-size:95px;-webkit-text-stroke:2px var(--ink);transform:rotate(15deg)}
+  .result-hero-inner{position:relative;z-index:1;max-width:76%}
+  .result-symbol{width:76px;height:76px;display:grid;place-items:center;margin-bottom:15px;border:3px solid var(--ink);border-radius:22px;background:var(--lime);font-size:47px;box-shadow:4px 4px 0 var(--ink)}
+  .result-kicker{font-size:11px;font-weight:1000;letter-spacing:.14em}
+  .result-title{margin:7px 0 9px;font-size:clamp(32px,6vw,54px);line-height:1.1;letter-spacing:-.07em;font-weight:1000}
+  .result-subtitle{margin:0 0 10px;font-size:14px;font-weight:1000}
+  .result-desc{margin:0;color:#302039;line-height:1.75;font-size:14px;font-weight:750}
+  .result-section{margin-top:22px;padding:19px;border:2px solid var(--ink);border-radius:18px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+  .section-title{display:flex;align-items:center;gap:9px;margin:0 0 15px;font-size:16px;font-weight:1000;letter-spacing:-.04em}
+  .section-title .emoji{width:30px;height:30px;display:grid;place-items:center;border:2px solid var(--ink);border-radius:9px;background:var(--lime)}
+  .score-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .score-name{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px;font-size:11px;font-weight:900}
+  .score-track{height:15px;border:2px solid var(--ink);border-radius:99px;background:#eee;overflow:hidden}
+  .score-fill{height:100%;width:50%;background:linear-gradient(90deg,var(--pink),var(--purple),var(--cyan));border-right:2px solid var(--ink)}
+  .details{display:grid;grid-template-columns:repeat(2,1fr);gap:13px;margin-top:18px}
+  .detail-card{min-height:140px;padding:17px;border:2px solid var(--ink);border-radius:16px;background:#fff;box-shadow:3px 3px 0 var(--ink)}
+  .detail-card:nth-child(2){background:#e5fcff}.detail-card:nth-child(3){background:#fff0fa}.detail-card:nth-child(4){background:#f0eaff}
+  .detail-card .mini-icon{font-size:21px;margin-bottom:8px}.detail-card h4{margin:0 0 7px;font-size:13px;font-weight:1000}
+  .detail-card p{margin:0;color:#514b5e;font-size:12px;line-height:1.7;font-weight:700}
+  .role-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .role-card{padding:13px 10px;border:2px solid var(--ink);border-radius:13px;background:var(--lime);text-align:center;box-shadow:3px 3px 0 var(--ink)}
+  .role-card:nth-child(2){background:var(--cyan)}.role-card:nth-child(3){background:#ffb1e2}
+  .role-num{font-size:10px;font-weight:1000;opacity:.7}.role-name{margin-top:5px;font-size:13px;font-weight:1000}
+  .chemistry-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .chem-card{padding:15px;border:2px solid var(--ink);border-radius:15px;background:#f4f0ff}
+  .chem-card:nth-child(2){background:#fff2d9}
+  .chem-label{font-size:10px;letter-spacing:.09em;font-weight:1000;color:#6b4acb}
+  .chem-card h4{margin:7px 0;font-size:15px;font-weight:1000}
+  .chem-card p{margin:0;font-size:12px;line-height:1.65;font-weight:700;color:#514b5e}
+  .mbti-chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+  .mbti-chip{padding:5px 9px;border:2px solid var(--ink);border-radius:99px;background:var(--lime);font-size:11px;font-weight:1000}
+  .result-note{margin:18px 0 0;color:#706a7c;font-size:10px;line-height:1.7;font-weight:650}
+  .result-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:23px}
+  .action-btn{flex:1 1 145px;padding:12px 14px;font-size:13px}
+  .action-save{background:var(--cyan)}.action-print{background:#fff}.action-excel{background:var(--lime)}.action-restart{background:var(--pink)}
+  [hidden]{display:none!important}
+  @media(max-width:640px){
+    body{padding:13px 10px 30px}.topline{font-size:10px;margin-bottom:11px}.top-pill{font-size:9px}
+    .surface{border-radius:19px;box-shadow:5px 5px 0 var(--ink)}
+    .hero-grid,.quiz-grid{grid-template-columns:1fr;gap:20px}.hero-art{min-height:215px}.mascot{width:125px;height:125px;font-size:67px}.mascot:after{font-size:43px;right:-20px;top:-18px}
+    .art-caption{font-size:10px}.axis-grid{grid-template-columns:1fr;gap:9px;margin:19px 0}.axis-card{display:flex;align-items:center;gap:12px;padding:11px}.axis-icon{margin:0;font-size:22px}.axis-card strong{margin:0 0 3px}.axis-card span{display:block}
+    .lead{font-size:14px}.one-line{font-size:15px}h1{font-size:clamp(41px,13vw,62px)}.start-btn{width:100%}
+    .question-panel{min-height:215px;padding:19px}.question{font-size:25px}.answers{grid-template-columns:1fr}.answer{min-height:76px;padding:13px}.quiz-progress-wrap{margin-bottom:18px}
+    .score-grid,.details,.chemistry-grid{grid-template-columns:1fr}.role-grid{grid-template-columns:1fr}.role-card{display:flex;align-items:center;gap:10px;text-align:left;padding:11px 13px}.role-num{width:22px}.role-name{margin:0}
+    .result-hero-inner{max-width:100%}.result-hero:after{right:-15px;top:5px;font-size:70px;opacity:.75}.result-symbol{width:64px;height:64px;font-size:39px}.result-title{font-size:36px}.result-desc{font-size:13px}
+    .result-actions{display:grid;grid-template-columns:1fr 1fr}.action-btn{width:100%;min-width:0}
+  }
+  @media print{
+    @page{size:A4;margin:13mm}
+    body{padding:0;background:white;background-image:none}.topline,.result-actions{display:none!important}
+    .shell{width:100%}.surface{border:0;border-radius:0;box-shadow:none}.result{padding:0}.result-hero,.result-section,.detail-card{break-inside:avoid;box-shadow:none}
+    .result-hero{margin-top:10px}.result-hero:after{display:none}.details{gap:7px}.detail-card{min-height:0;padding:11px}
+  }
+</style>
+</head>
+<body>
+<main class="shell">
+  <div class="topline">
+    <div class="brand"><span class="brand-mark">✳</span><span>CAREER CRASH TEST</span></div>
+    <span class="top-pill">10 Q · 4 CHARACTERS</span>
+  </div>
+
+  <section class="surface intro" id="intro">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow">⚡ YOUR WORK DNA · 3 MIN</span>
+        <h1>일잘러에도<br><span class="highlight">캐릭터</span>가 있다!</h1>
+        <p class="one-line"><span>나답게 일하는 법, 10문항이면 충분해.</span></p>
+        <p class="lead">내가 일할 때 발동하는 숨은 능력은? 취향처럼 가볍게 고르고, 나만의 커리어 캐릭터와 찰떡 팀플 조합까지 확인해 봐요.</p>
+        <div class="axis-grid">
+          <div class="axis-card"><div class="axis-icon">🧠</div><div><strong>생각하는 방식</strong><span>팩트와 논리 ↔ 사람과 공감</span></div></div>
+          <div class="axis-card"><div class="axis-icon">🛼</div><div><strong>움직이는 방식</strong><span>계획과 완성 ↔ 변화와 실험</span></div></div>
+        </div>
+        <button class="primary start-btn" id="startBtn">내 캐릭터 찾으러 가기! ↗</button>
+        <p class="fineprint">정답은 없어요. 이상적인 모습 말고 평소 나에게 가까운 쪽을 선택하세요. 이 테스트는 자기이해를 위한 엔터테인먼트형 참고 도구이며 전문 심리검사를 대체하지 않습니다.</p>
+      </div>
+      <div class="hero-art" aria-label="네온 컬러 캐릭터 일러스트">
+        <span class="hero-sticker">NO BORING CAREERS!</span>
+        <div class="mascot">🦝</div>
+        <span class="art-caption">FIND YOUR WORK DNA ✦</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="surface quiz" id="quiz" hidden aria-live="polite">
+    <div class="quiz-progress-wrap">
+      <div class="quiz-head"><span id="questionCount">QUESTION 01 / 10</span><span id="progressPercent">10%</span></div>
+      <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+    <div class="quiz-grid">
+      <div class="question-panel">
+        <div><span class="question-tag" id="questionCategory">생각하는 방식</span><div class="q-number" id="questionNumber">Q. 01</div></div>
+        <h2 class="question" id="questionText"></h2>
+        <p class="hint">첫 느낌을 믿고 골라봐요. 오래 고민하지 않아도 괜찮아요!</p>
+      </div>
+      <div class="answers-wrap">
+        <div class="answers-label">⚡ 더 나다운 선택은?</div>
+        <div class="answers" id="answers"></div>
+      </div>
+    </div>
+    <div class="quiz-foot">
+      <button class="text-button" id="backBtn" disabled>← 이전 질문</button>
+      <button class="primary next" id="nextBtn" disabled>다음 질문 →</button>
+    </div>
+  </section>
+
+  <section class="surface result" id="result" hidden>
+    <div class="result-top"><span>YOUR CAREER CHARACTER</span><span class="sticker">RESULT UNLOCKED ✨</span></div>
+    <div class="result-hero" id="resultHero">
+      <div class="result-hero-inner">
+        <div class="result-symbol" id="resultSymbol"></div>
+        <div class="result-kicker" id="resultKicker"></div>
+        <h2 class="result-title" id="resultTitle"></h2>
+        <p class="result-subtitle" id="resultSubtitle"></p>
+        <p class="result-desc" id="resultDesc"></p>
+      </div>
+    </div>
+
+    <section class="result-section score-section">
+      <h3 class="section-title"><span class="emoji">📊</span> 나의 성향 밸런스</h3>
+      <div class="score-grid">
+        <div><div class="score-name"><span>🧠 팩트·논리</span><span>사람·공감 💬</span></div><div class="score-track"><div class="score-fill" id="logicBar"></div></div></div>
+        <div><div class="score-name"><span>🗂️ 계획·체계</span><span>변화·실험 🧪</span></div><div class="score-track"><div class="score-fill" id="styleBar"></div></div></div>
+      </div>
+    </section>
+
+    <div class="details">
+      <div class="detail-card"><div class="mini-icon">💪</div><h4>이 캐릭터의 필살기</h4><p id="strength"></p></div>
+      <div class="detail-card"><div class="mini-icon">🏡</div><h4>능력치가 터지는 환경</h4><p id="environment"></p></div>
+      <div class="detail-card"><div class="mini-icon">🚧</div><h4>주의하면 더 좋은 점</h4><p id="caution"></p></div>
+      <div class="detail-card"><div class="mini-icon">🌱</div><h4>다음 레벨업 미션</h4><p id="growth"></p></div>
+    </div>
+
+    <section class="result-section">
+      <h3 class="section-title"><span class="emoji">🎯</span> 찰떡일 수 있는 추천 직무 3</h3>
+      <div class="role-grid" id="roles"></div>
+    </section>
+
+    <section class="result-section">
+      <h3 class="section-title"><span class="emoji">💘</span> 나랑 케미 좋은 사람은?</h3>
+      <div class="chemistry-grid">
+        <div class="chem-card"><div class="chem-label">MBTI CHEMISTRY · FOR FUN</div><h4>잘 통할 수 있는 MBTI</h4><div class="mbti-chips" id="mbtiMatches"></div><p id="mbtiReason"></p></div>
+        <div class="chem-card"><div class="chem-label">PRESENTATION TEAM · BEST MATCH</div><h4>발표팀에 이런 사람 한 명!</h4><p id="teamMatch"></p></div>
+      </div>
+    </section>
+
+    <p class="result-note">※ MBTI 조합은 공식 검사나 과학적으로 검증된 궁합이 아니라, 서로 다른 업무 강점을 보완한다는 관점의 재미 요소입니다. 같은 유형끼리도 경험과 가치관에 따라 협업 방식은 달라질 수 있습니다. 추천 직무 역시 확정적인 적성 판정이 아닌 탐색 출발점으로 활용하세요.</p>
+    <div class="result-actions">
+      <button class="primary action-btn action-save" id="saveBtn">결과 저장 ↓</button>
+      <button class="primary action-btn action-print" id="printBtn">인쇄 / PDF</button>
+      <button class="primary action-btn action-excel" id="excelBtn">엑셀로 저장 ↗</button>
+      <button class="primary action-btn action-restart" id="restartBtn">다시 테스트 ↻</button>
+    </div>
+  </section>
+</main>
+<script>
+(()=>{
+  'use strict';
+  const questions = [
+    {axis:'logic',category:'생각하는 방식',text:'새로운 프로젝트가 시작됐다! 내가 제일 먼저 하는 행동은?',options:[
+      {text:'목표·조건·자료부터 체크해서 전체 판을 읽는다.',score:1},
+      {text:'함께할 사람들의 기대와 고민부터 파악한다.',score:-1}]},
+    {axis:'logic',category:'생각하는 방식',text:'팀 회의에서 의견이 팽팽하게 갈리면?',options:[
+      {text:'근거와 데이터를 꺼내서 합리적인 결론을 찾는다.',score:1},
+      {text:'각자 왜 그렇게 생각하는지 듣고 접점을 만든다.',score:-1}]},
+    {axis:'logic',category:'생각하는 방식',text:'“오늘 일 진짜 잘했다!” 싶은 순간은?',options:[
+      {text:'목표를 달성하고 성과가 숫자나 결과로 딱 보일 때.',score:1},
+      {text:'함께한 사람들이 만족하고 한 팀이 된 느낌이 들 때.',score:-1}]},
+    {axis:'logic',category:'생각하는 방식',text:'갑자기 문제가 터졌다. 나의 첫 반응은?',options:[
+      {text:'문제를 쪼개서 원인과 해결 순서를 분석한다.',score:1},
+      {text:'영향을 받은 사람에게 지금 필요한 게 뭔지 묻는다.',score:-1}]},
+    {axis:'logic',category:'생각하는 방식',text:'팀원에게 아쉬운 점을 말해야 한다면?',options:[
+      {text:'관찰한 사실과 바꿔야 할 행동을 구체적으로 말한다.',score:1},
+      {text:'상대의 상황과 감정을 살피며 대화의 온도를 맞춘다.',score:-1}]},
+    {axis:'style',category:'움직이는 방식',text:'더 신나게 몰입할 수 있는 프로젝트는?',options:[
+      {text:'역할·일정·절차가 정리돼 안정적으로 진행되는 프로젝트.',score:1},
+      {text:'정해진 답 없이 방향부터 직접 만들어 가는 프로젝트.',score:-1}]},
+    {axis:'style',category:'움직이는 방식',text:'마감이 있는 과제를 받았다. 나는 보통?',options:[
+      {text:'먼저 계획표를 만들고 일정에 맞춰 차근차근 진행한다.',score:1},
+      {text:'일단 핵심부터 해보고 진행하면서 방법을 바꾼다.',score:-1}]},
+    {axis:'style',category:'움직이는 방식',text:'처음 해보는 일을 맡으면?',options:[
+      {text:'기존 사례와 매뉴얼을 찾아 안전한 길을 확인한다.',score:1},
+      {text:'작게 실험해 보고 나만의 방법을 찾아낸다.',score:-1}]},
+    {axis:'style',category:'움직이는 방식',text:'내가 선호하는 팀 분위기는?',options:[
+      {text:'기준과 역할이 명확하고 의사결정이 정돈된 팀.',score:1},
+      {text:'자율성이 높고 새로운 시도가 환영받는 팀.',score:-1}]},
+    {axis:'style',category:'움직이는 방식',text:'프로젝트가 끝난 뒤 더 뿌듯한 마무리는?',options:[
+      {text:'과정을 정리해 다음에도 쓸 수 있는 시스템을 만드는 것.',score:1},
+      {text:'새롭게 배운 것을 바탕으로 다음 아이디어를 떠올리는 것.',score:-1}]}
+  ];
+
+  const types = {
+    'logic-structure':{
+      symbol:'🦉',kicker:'THE FACT-CHECK OWL · L / S',title:'팩트체커 부엉이',subtitle:'“감으로 말고, 근거로 승부하지!”',
+      desc:'복잡한 상황에서도 핵심을 쏙쏙 뽑아내는 전략형 캐릭터! 자료를 모으고, 기준을 세우고, 흐트러진 일을 정리해 결과로 연결합니다. 팀의 브레이크이자 내비게이션 같은 존재예요.',
+      strength:'분석력과 꼼꼼함이 무기예요. 놓치기 쉬운 오류를 발견하고, 흩어진 정보를 구조화해 믿을 만한 결론으로 만드는 데 강합니다.',
+      environment:'목표와 책임이 분명하고, 집중할 시간과 신뢰할 만한 데이터가 주어지는 곳. 기준이 명확할수록 실력이 빛나요.',
+      caution:'완벽한 근거를 찾느라 실행이 늦어질 수 있어요. 가끔은 80%의 확신으로 먼저 움직여도 괜찮습니다.',
+      growth:'이번 주 미션: 완벽한 계획 대신 작은 실험 하나를 먼저 실행하고, 결과로 다음 단계를 정해보기!',
+      roles:['전략·사업기획','재무·데이터 분석','품질·리스크 관리'],
+      mbti:['ENTP','ENFP'],mbtiReason:'새로운 관점과 아이디어를 툭툭 던져주는 탐험가형과 만나면, 꼼꼼한 분석에 신선한 가능성이 더해질 수 있어요.',
+      team:'당신은 자료 조사·논리 구성·슬라이드 구조를 맡아보세요. 여기에 청중의 반응을 읽고 말맛 있게 발표하는 커뮤니케이터가 짝이 되면 완성도와 전달력을 모두 챙길 수 있어요.'
+    },
+    'logic-explore':{
+      symbol:'🦝',kicker:'THE IDEA HACKER · L / X',title:'아이디어 해커 라쿤',subtitle:'“일단 뜯어보고, 더 재밌게 바꿔보자!”',
+      desc:'호기심 레이더가 24시간 켜져 있는 실험형 캐릭터! 기존 방식에 “왜 꼭 그래야 해?”라고 질문하고, 데이터를 바탕으로 새로운 해결책을 빠르게 시험합니다. 변화가 클수록 신나요.',
+      strength:'문제 재정의, 가설 세우기, 빠른 학습, 프로토타입과 개선에 강해요. 남들이 지나친 기회를 발견하는 감각이 있습니다.',
+      environment:'자율성이 높고 실험을 장려하는 곳. 작게 실패해도 괜찮고, 배운 내용을 바로 다음 시도에 반영할 수 있으면 최고예요.',
+      caution:'아이디어가 많아지면 마무리가 뒤로 밀릴 수 있어요. 시작한 일을 끝내는 장치가 필요합니다.',
+      growth:'이번 주 미션: 실험 하나에 성공 기준과 마감 시간을 정하고, 결과를 한 장으로 정리해 공유하기!',
+      roles:['신사업·사업개발','제품·서비스 기획','UX·시장 리서치'],
+      mbti:['ISTJ','ESTJ'],mbtiReason:'아이디어를 현실적인 일정과 실행 계획으로 바꿔주는 체계형과 협업하면, 반짝이는 발상이 실제 성과로 이어지기 쉬워요.',
+      team:'당신은 발표 주제의 차별화·새로운 관점·시각 자료 아이디어를 맡아보세요. 일정과 역할을 정리하고 마지막까지 완성도를 챙기는 프로젝트 매니저가 최고의 짝꿍입니다.'
+    },
+    'people-structure':{
+      symbol:'🦫',kicker:'THE TEAM GUARDIAN · P / S',title:'팀플 수호대 비버',subtitle:'“우리 같이 하면 되지! 내가 판 깔게.”',
+      desc:'사람도 일정도 놓치지 않는 협업형 캐릭터! 구성원의 컨디션을 살피고, 역할과 절차를 정리해 팀이 안정적으로 굴러가게 합니다. 조용히 팀의 구멍을 메우는 믿음직한 해결사예요.',
+      strength:'경청과 공감, 일정 관리, 협업 조정, 신뢰 형성에 강해요. 서로 다른 사람을 연결하고 함께 완주하도록 돕습니다.',
+      environment:'역할과 과정이 어느 정도 명확하고, 서로 존중하며 오래 협업할 수 있는 팀. 약속과 신뢰가 중요한 환경에서 빛나요.',
+      caution:'모두를 챙기다 내 몫이 과해질 수 있어요. 부탁을 받아들이기 전에 내 우선순위부터 확인하세요.',
+      growth:'이번 주 미션: 회의에서 모두의 의견을 듣되, 내 의견과 우선순위도 한 번은 또렷하게 말하기!',
+      roles:['인사·조직문화','프로젝트 운영·PMO','교육·조직개발'],
+      mbti:['ENTP','ENFP'],mbtiReason:'새로운 시도를 주도하고 분위기를 환기하는 아이디어형과 함께하면, 안정적인 운영에 변화의 에너지가 더해져요.',
+      team:'당신은 역할 분담·일정 관리·팀원 간 의견 조율을 맡으면 강점이 살아나요. 여기에 핵심을 빠르게 결정하고 발표 방향을 과감히 잡아주는 추진력 있는 사람이 함께하면 좋아요.'
+    },
+    'people-explore':{
+      symbol:'🦎',kicker:'THE VIBE CATALYST · P / X',title:'분위기 치트키 카멜레온',subtitle:'“사람 모였지? 그럼 뭐든 시작 가능!”',
+      desc:'사람과 아이디어 사이를 자유롭게 오가는 촉진형 캐릭터! 낯선 사람과도 금세 연결되고, 분위기를 살리며, 주변의 참여를 이끌어 새로운 일을 시작하게 만듭니다.',
+      strength:'소통과 설득, 네트워킹, 아이디어 발산, 분위기 전환에 강해요. 사람들의 관심을 모아 행동으로 이어지게 하는 힘이 있습니다.',
+      environment:'사람을 자주 만나고 의견을 주고받으며, 자율적으로 시도할 수 있는 역동적인 환경. 변화가 많은 곳에서 에너지를 얻어요.',
+      caution:'여러 일을 동시에 벌이다 세부 일정과 마무리를 놓칠 수 있어요. 아이디어를 실행 단위로 나누는 습관이 필요합니다.',
+      growth:'이번 주 미션: 하고 싶은 일 세 가지 중 하나만 골라 담당자·기한·완료 기준을 적어보기!',
+      roles:['마케팅·브랜딩','영업·파트너십','콘텐츠·커뮤니티 기획'],
+      mbti:['ISTJ','INTJ'],mbtiReason:'아이디어를 정리하고 우선순위를 잡아주는 전략형과 만나면, 당신의 추진력과 사람을 끌어당기는 힘이 더 큰 결과로 연결될 수 있어요.',
+      team:'당신은 발표·스토리텔링·청중과의 소통을 맡아보세요. 자료의 정확성을 확인하고 발표 흐름과 마감 일정을 관리하는 꼼꼼한 설계자가 함께하면 팀플 밸런스가 좋아집니다.'
+    }
+  };
+
+  const $ = id => document.getElementById(id);
+  const intro=$('intro'),quiz=$('quiz'),result=$('result'),answersBox=$('answers');
+  let current=0,selected=Array(questions.length).fill(null),lastResult=null;
+
+  function showQuestion(){
+    const q=questions[current];
+    $('questionCount').textContent=`QUESTION ${String(current+1).padStart(2,'0')} / 10`;
+    $('progressPercent').textContent=`${(current+1)*10}%`;
+    $('progressFill').style.width=`${(current+1)*10}%`;
+    $('questionCategory').textContent=q.category;
+    $('questionNumber').textContent=`Q. ${String(current+1).padStart(2,'0')}`;
+    $('questionText').textContent=q.text;
+    answersBox.innerHTML='';
+    q.options.forEach((opt,i)=>{
+      const button=document.createElement('button');button.type='button';
+      button.className=`answer${selected[current]===i?' selected':''}`;
+      button.setAttribute('aria-pressed',selected[current]===i?'true':'false');
+      const letter=document.createElement('span');letter.className='answer-letter';letter.textContent=i===0?'A':'B';
+      const copy=document.createElement('span');copy.className='answer-copy';copy.textContent=opt.text;
+      button.append(letter,copy);
+      button.addEventListener('click',()=>{selected[current]=i;showQuestion();});
+      answersBox.appendChild(button);
+    });
+    $('backBtn').disabled=current===0;
+    $('nextBtn').disabled=selected[current]===null;
+    $('nextBtn').textContent=current===questions.length-1?'내 결과 확인하기 ✨':'다음 질문 →';
+  }
+
+  function renderResult(){
+    let logic=0,style=0;
+    questions.forEach((q,i)=>{const score=q.options[selected[i]].score;if(q.axis==='logic')logic+=score;else style+=score;});
+    const typeKey=`${logic>=0?'logic':'people'}-${style>=0?'structure':'explore'}`;
+    const type=types[typeKey];
+    const logicPct=Math.max(0,Math.min(100,((logic+5)/10)*100));
+    const structurePct=Math.max(0,Math.min(100,((style+5)/10)*100));
+    lastResult={typeKey,type,logic,style,logicPct,structurePct,answers:selected.slice()};
+    $('resultSymbol').textContent=type.symbol;$('resultKicker').textContent=type.kicker;
+    $('resultTitle').textContent=type.title;$('resultSubtitle').textContent=type.subtitle;$('resultDesc').textContent=type.desc;
+    $('strength').textContent=type.strength;$('environment').textContent=type.environment;
+    $('caution').textContent=type.caution;$('growth').textContent=type.growth;
+    $('logicBar').style.width=`${logicPct}%`;$('styleBar').style.width=`${structurePct}%`;
+    $('roles').innerHTML='';
+    type.roles.forEach((role,i)=>{const card=document.createElement('div');card.className='role-card';
+      const n=document.createElement('span');n.className='role-num';n.textContent=`0${i+1}`;
+      const name=document.createElement('span');name.className='role-name';name.textContent=role;card.append(n,name);$('roles').appendChild(card);});
+    $('mbtiMatches').innerHTML='';type.mbti.forEach(m=>{const chip=document.createElement('span');chip.className='mbti-chip';chip.textContent=m;$('mbtiMatches').appendChild(chip);});
+    $('mbtiReason').textContent=type.mbtiReason;$('teamMatch').textContent=type.team;
+    intro.hidden=true;quiz.hidden=true;result.hidden=false;window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function resultText(){
+    if(!lastResult)return '';
+    const {type,logicPct,structurePct,logic,style}=lastResult;
+    return [
+      'CAREER CRASH TEST — 나의 커리어 캐릭터 결과','',
+      `${type.symbol} ${type.title} (${type.kicker})`,type.subtitle,type.desc,'',
+      '[성향 밸런스]',`팩트·논리 ${logicPct}% / 사람·공감 ${100-logicPct}%`,`계획·체계 ${structurePct}% / 변화·실험 ${100-structurePct}%`,`원점수: 생각 ${logic}, 움직임 ${style}`,'',
+      '[필살기]',type.strength,'[잘 맞는 환경]',type.environment,'[주의점]',type.caution,'[레벨업 미션]',type.growth,'',
+      '[추천 직무]',...type.roles.map((r,i)=>`${i+1}. ${r}`),'',
+      '[MBTI 케미 — 재미 참고용]',type.mbti.join(', '),type.mbtiReason,'',
+      '[발표팀 짝꿍]',type.team,'',
+      '[내 답변]',...questions.map((q,i)=>`${i+1}. ${q.text}\n   ${q.options[selected[i]].text}`),'',
+      '※ 이 테스트는 자기이해를 위한 참고 도구이며 MBTI 궁합이나 직무 적합성을 과학적으로 판정하지 않습니다.'
+    ].join('\n');
+  }
+
+  function downloadBlob(blob,filename){
+    const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;
+    document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+  }
+  function saveText(){
+    const blob=new Blob(['\uFEFF'+resultText()],{type:'text/plain;charset=utf-8'});
+    downloadBlob(blob,'나의_커리어_캐릭터_결과.txt');
+  }
+  function xmlEscape(value){return String(value??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&apos;');}
+  function colName(n){let s='';while(n>0){let r=(n-1)%26;s=String.fromCharCode(65+r)+s;n=Math.floor((n-1)/26);}return s;}
+  function crc32(bytes){let c=0xffffffff;for(let i=0;i<bytes.length;i++){c^=bytes[i];for(let k=0;k<8;k++)c=(c&1)?(0xedb88320^(c>>>1)):(c>>>1);}return (c^0xffffffff)>>>0;}
+  function zipStore(files){
+    const enc=new TextEncoder(),local=[],central=[];let offset=0;
+    const u16=(v)=>[v&255,(v>>>8)&255],u32=(v)=>[v&255,(v>>>8)&255,(v>>>16)&255,(v>>>24)&255];
+    for(const file of files){
+      const name=enc.encode(file.name),data=typeof file.data==='string'?enc.encode(file.data):file.data,crc=crc32(data);
+      const lh=new Uint8Array([0x50,0x4b,0x03,0x04,...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),...u32(crc),...u32(data.length),...u32(data.length),...u16(name.length),...u16(0)]);
+      local.push(lh,name,data);
+      const ch=new Uint8Array([0x50,0x4b,0x01,0x02,...u16(20),...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),...u32(crc),...u32(data.length),...u32(data.length),...u16(name.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(offset)]);
+      central.push(ch,name);offset+=lh.length+name.length+data.length;
+    }
+    const centralSize=central.reduce((n,a)=>n+a.length,0),entryCount=files.length;
+    const end=new Uint8Array([0x50,0x4b,0x05,0x06,...u16(0),...u16(0),...u16(entryCount),...u16(entryCount),...u32(centralSize),...u32(offset),...u16(0)]);
+    return new Blob([...local,...central,end],{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+  }
+  function makeXlsx(){
+    if(!lastResult)return;
+    const {type,logicPct,structurePct,logic,style}=lastResult;
+    const rows=[
+      ['항목','내용'],['커리어 캐릭터',`${type.symbol} ${type.title}`],['영문 코드',type.kicker],['한 줄 캐치프레이즈',type.subtitle],['캐릭터 설명',type.desc],
+      ['팩트·논리 비율',`${logicPct}%`],['사람·공감 비율',`${100-logicPct}%`],['계획·체계 비율',`${structurePct}%`],['변화·실험 비율',`${100-structurePct}%`],
+      ['필살기',type.strength],['잘 맞는 환경',type.environment],['주의점',type.caution],['레벨업 미션',type.growth],
+      ['추천 직무 1',type.roles[0]],['추천 직무 2',type.roles[1]],['추천 직무 3',type.roles[2]],
+      ['MBTI 케미(재미 참고)',type.mbti.join(', ')],['MBTI 케미 설명',type.mbtiReason],['발표팀 추천 조합',type.team],
+      ['생각하는 방식 원점수',logic],['움직이는 방식 원점수',style],['',''],['문항 번호','질문','선택한 답변']
+    ];
+    questions.forEach((q,i)=>rows.push([i+1,q.text,q.options[selected[i]].text]));
+    const sheetRows=rows.map((row,r)=>{
+      const cells=row.map((v,c)=>{
+        const ref=`${colName(c+1)}${r+1}`;
+        if(typeof v==='number')return `<c r="${ref}"><v>${v}</v></c>`;
+        return `<c r="${ref}" t="inlineStr"><is><t xml:space="preserve">${xmlEscape(v)}</t></is></c>`;
+      }).join('');
+      return `<row r="${r+1}">${cells}</row>`;
+    }).join('');
+    const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="1" topLeftCell="A2" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews><cols><col min="1" max="1" width="24" customWidth="1"/><col min="2" max="3" width="72" customWidth="1"/></cols><sheetData>${sheetRows}</sheetData><autoFilter ref="A1:C${rows.length}"/></worksheet>`;
+    const files=[
+      {name:'[Content_Types].xml',data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>'},
+      {name:'_rels/.rels',data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>'},
+      {name:'xl/workbook.xml',data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="커리어 결과" sheetId="1" r:id="rId1"/></sheets></workbook>'},
+      {name:'xl/_rels/workbook.xml.rels',data:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>'},
+      {name:'xl/worksheets/sheet1.xml',data:sheet}
+    ];
+    downloadBlob(zipStore(files),'나의_커리어_캐릭터_결과.xlsx');
+  }
+
+  $('startBtn').addEventListener('click',()=>{current=0;selected=Array(questions.length).fill(null);intro.hidden=true;result.hidden=true;quiz.hidden=false;showQuestion();window.scrollTo({top:0,behavior:'smooth'});});
+  $('backBtn').addEventListener('click',()=>{if(current>0){current--;showQuestion();}});
+  $('nextBtn').addEventListener('click',()=>{if(selected[current]===null)return;if(current<questions.length-1){current++;showQuestion();}else renderResult();});
+  $('restartBtn').addEventListener('click',()=>{current=0;selected=Array(questions.length).fill(null);lastResult=null;result.hidden=true;intro.hidden=false;window.scrollTo({top:0,behavior:'smooth'});});
+  $('saveBtn').addEventListener('click',saveText);
+  $('printBtn').addEventListener('click',()=>window.print());
+  $('excelBtn').addEventListener('click',makeXlsx);
+})();
+</script>
+</body>
+</html>
